@@ -18,7 +18,7 @@ public class MonacoViewController: ViewController, WKUIDelegate, WKNavigationDel
     
     var delegate: MonacoViewControllerDelegate?
     
-    var webView: WKWebView!
+    public var webView: WKWebView!
     
     public override func loadView() {
         let webConfiguration = WKWebViewConfiguration()

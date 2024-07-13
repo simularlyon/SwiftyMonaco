@@ -16,6 +16,7 @@ typealias ViewControllerRepresentable = UIViewControllerRepresentable
 public struct SwiftyMonaco: ViewControllerRepresentable, MonacoViewControllerDelegate {
     
     var text: Binding<String>
+    var onChange: ((MonacoViewController, Context) -> Void)?
     private var syntax: SyntaxHighlight?
     private var _minimap: Bool = true
     private var _scrollbar: Bool = true
@@ -24,8 +25,9 @@ public struct SwiftyMonaco: ViewControllerRepresentable, MonacoViewControllerDel
     private var _fontSize: Int = 12
     private var _theme: Theme? = nil
     
-    public init(text: Binding<String>) {
+    public init(text: Binding<String>, onChange: ((MonacoViewController, Context) -> Void)? = nil) {
         self.text = text
+        self.onChange = onChange
     }
     
     #if os(macOS)
@@ -36,6 +38,7 @@ public struct SwiftyMonaco: ViewControllerRepresentable, MonacoViewControllerDel
     }
     
     public func updateNSViewController(_ nsViewController: MonacoViewController, context: Context) {
+        onChange?(nsViewController, context)
     }
     #endif
     
